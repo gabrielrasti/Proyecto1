@@ -7,6 +7,10 @@ package proyecto1;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,7 +25,7 @@ public class ConexionDB {
         return con;
     }
     
-    
+   
     private Connection conn = null;
     
     private ConexionDB(){
@@ -35,6 +39,18 @@ public class ConexionDB {
             }
             System.out.println("La conexión se realizo sin problemas! =) ");
         
+    }
+    public  boolean execute(String sql){
+        boolean res=false;
+        try {
+            
+            Statement st=conn.createStatement();
+            st.execute(sql);
+            res=true; 
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
     }
     
     
